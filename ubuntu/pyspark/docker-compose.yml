@@ -1,0 +1,18 @@
+version: "3.5"
+services:
+  master:
+    image: mpolatcan/pyspark:ubuntu-2.3.0-hadoop2.7
+    container_name: master
+    hostname: master
+    environment:
+      - SPARK_NODE_TYPE=master
+    ports:
+      - 8080:8080
+
+  worker:
+    image: mpolatcan/pyspark:ubuntu-2.3.0-hadoop2.7
+    environment:
+      - SPARK_NODE_TYPE=worker
+      - SPARK_MASTER_HOSTNAME=master
+    links:
+      - master
