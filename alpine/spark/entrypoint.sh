@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-spark_config_loader.sh
+/spark_config_loader.sh
 
 function startMaster() {
     start-master.sh
