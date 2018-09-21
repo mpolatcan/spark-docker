@@ -288,6 +288,7 @@ RUN apt-get update && \
     rm spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && \
     mv /usr/local/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}/* ${SPARK_HOME} && \
     rm -r /usr/local/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION} && \
-    chmod +x entrypoint.sh spark_config_loader.sh
+    chmod +x entrypoint.sh spark_config_loader.sh && \
+    echo "PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin:$JAVA_HOME/bin" >> /etc/environment
 
 ENTRYPOINT ["./entrypoint.sh"]
