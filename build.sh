@@ -28,7 +28,7 @@ DISTS=(
 function build_image() {
     sudo docker build -q -t mpolatcan/$1:$2-$3-hadoop-$4 --build-arg SPARK_VERSION=$3 --build-arg HADOOP_VERSION=$4 ./$2/$1/
 	sudo docker push mpolatcan/$1:$2-$3-hadoop-$4
-	sudo docker rmi $(sudo docker images -q)
+	sudo docker rmi mpolatcan/$1:$2-$3-hadoop-$4
 }
 
 for SPARK_TYPE in ${SPARK_TYPES[@]}; do
