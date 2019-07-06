@@ -33,7 +33,7 @@ function build_image() {
 
 for SPARK_TYPE in ${SPARK_TYPES[@]}; do
     for SPARK_VERSION in ${SPARK_VERSIONS[@]}; do
-        for HADOOP_VERSION in ${HADOOP_VERSION[@]}; do
+        for HADOOP_VERSION in ${HADOOP_VERSIONS[@]}; do
             for DIST in ${DISTS[@]}; do
                 build_image $SPARK_TYPE $DIST $SPARK_VERSION $HADOOP_VERSION
             done
