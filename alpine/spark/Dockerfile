@@ -1,14 +1,13 @@
-FROM anapsix/alpine-java
+FROM openjdk:8-alpine
 
 MAINTAINER Mutlu Polacan <mutlupolatcan@gmail.com>
 
 ARG SPARK_VERSION=2.3.0
 ARG HADOOP_VERSION=2.7
 
-ENV JAVA_HOME "/opt/jdk"
 ENV SPARK_HOME "/usr/local/spark"
 ENV SPARK_CONF_DIR "${SPARK_HOME}/conf"
-ENV PATH $PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin:$JAVA_HOME/bin
+ENV PATH $PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin
 
 ENV SPARK_NODE_TYPE "master"
 ENV SPARK_MASTER_HOSTNAME "NULL"
@@ -287,6 +286,6 @@ RUN apk --update add --no-cache nano bash python procps rsync coreutils wget && 
     mv /usr/local/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}/* ${SPARK_HOME} && \
     rm -r /usr/local/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION} && \
     chmod +x entrypoint.sh spark_config_loader.sh && \
-    echo "PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin:$JAVA_HOME/bin" >> /etc/profile
+    echo "PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin" >> /etc/profile
 
 ENTRYPOINT ["./entrypoint.sh"]

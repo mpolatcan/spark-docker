@@ -1,14 +1,13 @@
-FROM ubuntu:16.04
+FROM openjdk:8
 
 MAINTAINER Mutlu Polacan <mutlupolatcan@gmail.com>
 
 ARG SPARK_VERSION=2.3.0
 ARG HADOOP_VERSION=2.7
 
-ENV JAVA_HOME "/usr/lib/jvm/java-8-openjdk-amd64"
 ENV SPARK_HOME "/usr/local/spark"
 ENV SPARK_CONF_DIR "${SPARK_HOME}/conf"
-ENV PATH $PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin:$JAVA_HOME/bin
+ENV PATH $PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin
 
 ENV SPARK_NODE_TYPE "master"
 ENV SPARK_MASTER_HOSTNAME "NULL"
@@ -280,7 +279,7 @@ ENV SPARK_DEPLOY_ZOOKEEPER_DIR "NULL"
 COPY entrypoint.sh spark_config_loader.sh ./
 
 RUN apt-get update && \
-    apt-get -y install --no-install-recommends nano default-jre default-jdk scala rsync wget && \
+    apt-get -y install --no-install-recommends nano scala rsync wget && \
     rm -rf /var/lib/apt/lists/* && \
     wget http://www-eu.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && \
     mkdir -p ${SPARK_HOME} && \
@@ -289,6 +288,6 @@ RUN apt-get update && \
     mv /usr/local/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}/* ${SPARK_HOME} && \
     rm -r /usr/local/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION} && \
     chmod +x entrypoint.sh spark_config_loader.sh && \
-    echo "PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin:$JAVA_HOME/bin" >> /etc/environment
+    echo "PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin" >> /etc/environment
 
 ENTRYPOINT ["./entrypoint.sh"]
