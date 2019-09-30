@@ -9,4 +9,4 @@ RUN apt-get update && \
     apt-get -y install --no-install-recommends python3.5 python3.5-dev python3.5-dev && \
     rm -rf /var/lib/apt/lists/*
 
-ENTRYPOINT ["./entrypoiny.sh"]
+ENTRYPOINT ["./entrypoint.sh"]
