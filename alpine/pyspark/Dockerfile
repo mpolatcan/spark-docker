@@ -5,6 +5,6 @@ FROM mpolatcan/spark:alpine-${SPARK_VERSION}-hadoop-${HADOOP_VERSION}
 
 ENV PYSPARK_PYTHON="python3"
 
-RUN apk --update add --no-cache python3.6 python3.6-dev python3.6-doc python3-pip
+RUN apk --update add --no-cache python3 python3-dev
 
 ENTRYPOINT ["./entrypoint.sh"]
