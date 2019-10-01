@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SPARK_VERSIONS=(
-    "2.4.3"
+    "2.4.4"
     "2.3.3"
 )
 
@@ -26,7 +26,7 @@ DISTS=(
 # $3: SPARK_VERSION
 # $4: HADOOP_VERSION
 function build_image() {
-    sudo docker build -q -t mpolatcan/$1:$2-$3-hadoop-$4 --build-arg SPARK_VERSION=$3 --build-arg HADOOP_VERSION=$4 ./$2/$1/
+  sudo docker build -q -t mpolatcan/$1:$2-$3-hadoop-$4 --build-arg SPARK_VERSION=$3 --build-arg HADOOP_VERSION=$4 ./$2/$1/
 	sudo docker push mpolatcan/$1:$2-$3-hadoop-$4
 	sudo docker rmi mpolatcan/$1:$2-$3-hadoop-$4
 }
