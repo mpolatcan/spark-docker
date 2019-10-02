@@ -279,7 +279,7 @@ ENV SPARK_DEPLOY_ZOOKEEPER_DIR "NULL"
 COPY entrypoint.sh spark_config_loader.sh ./
 
 RUN apt-get update && \
-    apt-get -y install --no-install-recommends nano scala rsync wget && \
+    apt-get -y install --no-install-recommends nano scala rsync wget g++ && \
     rm -rf /var/lib/apt/lists/* && \
     wget http://www-eu.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && \
     mkdir -p ${SPARK_HOME} && \

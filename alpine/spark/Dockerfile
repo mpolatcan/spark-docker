@@ -278,7 +278,7 @@ ENV SPARK_DEPLOY_ZOOKEEPER_DIR "NULL"
 
 COPY entrypoint.sh spark_config_loader.sh ./
 
-RUN apk --update add --no-cache nano bash python procps rsync coreutils wget && \
+RUN apk --update add --no-cache nano bash python procps rsync coreutils wget build-base && \
     wget http://www-eu.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && \
     mkdir -p ${SPARK_HOME} && \
     tar -xvzf spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz -C /usr/local && \
