@@ -7,7 +7,7 @@ ENV PYSPARK_PYTHON="python3"
 
 RUN apt-get update && \
     apt-get -y install --no-install-recommends python3 python3-dev python3-pip && \
-    pip3 install setuptools && \
+    pip3 install setuptools wheel && \
     rm -rf /var/lib/apt/lists/*
 
 ENTRYPOINT ["./entrypoint.sh"]
