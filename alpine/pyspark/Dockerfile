@@ -5,7 +5,7 @@ FROM mpolatcan/spark:alpine-${SPARK_VERSION}-hadoop-${HADOOP_VERSION}
 
 ENV PYSPARK_PYTHON="python3"
 
-RUN apk --update add --no-cache python3 python3-dev &&
-    pip3 install setuptools wheel
+RUN apk --update add --no-cache python3 python3-dev libpq-dev &&
+    pip3 install setuptools wheel pyspark jupyter pyscopg2 sqlalchemy
 
 ENTRYPOINT ["./entrypoint.sh"]
