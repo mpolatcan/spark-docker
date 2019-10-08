@@ -1,4 +1,6 @@
-FROM openjdk:8
+ARG JAVA_VERSION=8
+
+FROM openjdk:${JAVA_VERSION}
 
 MAINTAINER Mutlu Polacan <mutlupolatcan@gmail.com>
 
