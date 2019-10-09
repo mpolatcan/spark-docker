@@ -279,6 +279,7 @@ ENV SPARK_DEPLOY_ZOOKEEPER_DIR "NULL"
 # --------------------------------------------------------------------
 
 COPY entrypoint.sh spark_config_loader.sh ./
+COPY spark-env.sh ${SPARK_CONF_DIR}/
 
 RUN apt-get update && \
     apt-get -y install --no-install-recommends nano scala rsync wget g++ && \

@@ -3,7 +3,6 @@
 SPARK_TYPES=(
    "spark"
    "pyspark"
-   "sparkr"
 )
 
 SPARK_VERSIONS=(
