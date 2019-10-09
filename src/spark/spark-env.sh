@@ -1,1 +1,0 @@
-SPARK_CONF_DIR=${SPARK_HOME}/conf
