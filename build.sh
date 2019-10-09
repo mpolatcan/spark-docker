@@ -17,8 +17,6 @@ HADOOP_VERSIONS=(
 
 JAVA_VERSIONS=(
     "8"
-    "9"
-    "10"
     "11"
 )
 
