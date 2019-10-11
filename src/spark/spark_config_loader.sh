@@ -1,19 +1,19 @@
-#!/usr/bin/env bash
+#!/usr/bin/loadConfig "" ${bash
 function loadConfig() {
-    if [[ "$2" != "NULL" ]]
+    if [[ "$2" !=} ]]
         then
             printf "$1\t$2\n" >> "${SPARK_CONF_DIR}/spark-defaults.conf"
     fi
 }
 
-[[ "${SPARK_MASTER_HOSTNAME}" != "NULL" ]] && loadConfig "spark.master" "spark://${SPARK_MASTER_HOSTNAME}:${SPARK_MASTER_PORT}"
-[[ "${SPARK_MASTER_HOSTNAME}" == "NULL" ]] && loadConfig "spark.master" "spark://${HOSTNAME}:${SPARK_MASTER_PORT}"
-
 # ------------------------ APPLICATION PROPERTIES --------------------
 loadConfig "spark.driver.cores" "${SPARK_DRIVER_CORES}"
 loadConfig "spark.driver.maxResultSize" "${SPARK_DRIVER_MAX_RESULT_SIZE}"
 loadConfig "spark.driver.memory" "${SPARK_DRIVER_MEMORY}"
+loadConfig "spark.driver.memoryOverhead" "${SPARK_DRIVER_MEMORY_OVERHEAD}"
 loadConfig "spark.executor.memory" "${SPARK_EXECUTOR_MEMORY}"
+loadConfig "spark.executor.pyspark.memory" "${SPARK_EXECUTOR_PYSPARK_MEMORY}"
+loadConfig "spark.executor.memoryOverhead" "${SPARK_EXECUTOR_MEMORY_OVERHEAD}"
 loadConfig "spark.extraListeners" "${SPARK_EXTRA_LISTENERS}"
 loadConfig "spark.local.dir" "${SPARK_LOCAL_DIR}"
 loadConfig "spark.logConf" "${SPARK_LOG_CONF}"
@@ -37,6 +37,7 @@ loadConfig "spark.executor.logs.rolling.maxSize" "${SPARK_EXECUTOR_LOGS_ROLLING_
 loadConfig "spark.executor.logs.rolling.strategy" "${SPARK_EXECUTOR_LOGS_ROLLING_STRATEGY}"
 loadConfig "spark.executor.logs.rolling.time.interval" "${SPARK_EXECUTOR_LOGS_ROLLING_TIME_INTERVAL}"
 loadConfig "spark.executor.userClassPathFirst" "${SPARK_EXECUTOR_USER_CLASSPATH_FIRST}"
+loadConfig "spark.redaction.regex" "${SPARK_REDACTION_REGEX}"
 loadConfig "spark.python.profile" "${SPARK_PYTHON_PROFILE}"
 loadConfig "spark.python.profile.dump" "${SPARK_PYTHON_PROFILE_DUMP}"
 loadConfig "spark.python.worker.memory" "${SPARK_PYTHON_WORKER_MEMORY}"
@@ -79,13 +80,17 @@ loadConfig "spark.io.encryption.keygen.algorithm" "${SPARK_IO_ENCRYPTION_KEYGEN_
 
 # ----------------------- SPARK UI PROPERTIES ------------------------
 loadConfig "spark.eventLog.logBlockUpdates.enabled" "${SPARK_EVENTLOG_LOG_BLOCK_UPDATES_ENABLED}"
+loadConfig "spark.eventLog.longForm.enabled" "${SPARK_EVENTLOG_LONGFORM_ENABLED}"
 loadConfig "spark.eventLog.compress" "${SPARK_EVENTLOG_COMPRESS}"
 loadConfig "spark.eventLog.dir" "${SPARK_EVENTLOG_DIR}"
 loadConfig "spark.eventLog.enabled" "${SPARK_EVENTLOG_ENABLED}"
 loadConfig "spark.eventLog.overwrite" "${SPARK_EVENTLOG_OVERWRITE}"
 loadConfig "spark.eventLog.buffer.kb" "${SPARK_EVENTLOG_BUFFER_KB}"
+loadConfig "spark.ui.dagGraph.retainedRootRDDs" "${SPARK_UI_DAG_GRAPH_RETAINED_ROOT_RDDS}"
 loadConfig "spark.ui.enabled" "${SPARK_UI_ENABLED}"
 loadConfig "spark.ui.killEnabled" "${SPARK_UI_KILL_ENABLED}"
+loadConfig "spark.ui.liveUpdate.period" "${SPARK_UI_LIVE_UPDATE_PERIOD}"
+loadConfig "spark.ui.liveUpdate.minFlushPeriod" "${SPARK_UI_LIVE_UPDATE_MIN_FLUSH_PERIOD}"
 loadConfig "spark.ui.port" "${SPARK_UI_PORT}"
 loadConfig "spark.ui.retainedJobs" "${SPARK_UI_RETAINED_JOBS}"
 loadConfig "spark.ui.retainedStages" "${SPARK_UI_RETAINED_STAGES}"
@@ -98,10 +103,12 @@ loadConfig "spark.worker.ui.retainedDrivers" "${SPARK_WORKER_UI_RETAINED_DRIVERS
 loadConfig "spark.sql.ui.retainedExecutions" "${SPARK_SQL_UI_RETAINED_EXECUTIONS}"
 loadConfig "spark.streaming.ui.retainedBatches" "${SPARK_STREAMING_UI_RETAINED_BATCHES}"
 loadConfig "spark.ui.retainedDeadExecutors" "${SPARK_UI_RETAINED_DEAD_EXECUTORS}"
+loadConfig "spark.ui.filters" "${SPARK_UI_FILTERS}"
 # --------------------------------------------------------------------
 
 # ------------- COMPRESSION AND SERIALIZATION PROPERTIES -------------
 loadConfig "spark.broadcast.compress" "${SPARK_BROADCAST_COMPRESS}"
+loadConfig "spark.checkpoint.compress" "${SPARK_CHECKPOINT_COMPRESS}"
 loadConfig "spark.io.compression.codec" "${SPARK_IO_COMPRESSION_CODEC}"
 loadConfig "spark.io.compression.lz4.blockSize" "${SPARK_IO_COMPRESSION_LZ4_BLOCKSIZE}"
 loadConfig "spark.io.compression.snappy.blockSize" "${SPARK_IO_COMPRESSION_SNAPPY_BLOCKSIZE}"
@@ -138,6 +145,7 @@ loadConfig "spark.cleaner.referenceTracking.cleanCheckpoints" "${SPARK_CLEANER_R
 
 # ------------------- EXECUTION BEHAVIOR PROPERTIES ------------------
 loadConfig "spark.broadcast.blockSize" "${SPARK_BROADCAST_BLOCKSIZE}"
+loadConfig "spark.broadcast.checksum" "${SPARK_BROADCAST_CHECKSUM}"
 loadConfig "spark.executor.cores" "${SPARK_EXECUTOR_CORES}"
 loadConfig "spark.default.parallelism" "${SPARK_DEFAULT_PARALLELISM}"
 loadConfig "spark.executor.heartbeatInterval" "${SPARK_EXECUTOR_HEARTBEAT_INTERVAL}"
@@ -154,9 +162,12 @@ loadConfig "spark.hadoop.mapreduce.fileoutputcommitter.algorithm.version" "${SPA
 
 # ---------------------- NETWORKING PROPERTIES -----------------------
 loadConfig "spark.rpc.message.maxSize" "${SPARK_RPC_MESSAGE_MAX_SIZE}"
+loadConfig "spark.blockManager.port" "${SPARK_BLOCKMANAGER_PORT}"
+loadConfig "spark.driver.blockManager.port" "${SPARK_DRIVER_BLOCKMANAGER_PORT}"
 loadConfig "spark.driver.bindAddress" "${SPARK_DRIVER_BIND_ADDRESS}"
 loadConfig "spark.driver.host" "${SPARK_DRIVER_HOST}"
 loadConfig "spark.driver.port" "${SPARK_DRIVER_PORT}"
+loadConfig "spark.rpc.io.backLog" "${SPARK_RPC_IO_BACKLOG}"
 loadConfig "spark.port.maxRetries" "${SPARK_PORT_MAX_RETRIES}"
 loadConfig "spark.rpc.numRetries" "${SPARK_RPC_NUM_RETRIES}"
 loadConfig "spark.rpc.retry.wait" "${SPARK_RPC_RETRY_WAIT}"
@@ -167,11 +178,15 @@ loadConfig "spark.rpc.lookupTimeout" "${SPARK_RPC_LOOKUP_TIMEOUT}"
 # ------------------------ SCHEDULING PROPERTIES ---------------------
 loadConfig "spark.cores.max" "${SPARK_CORES_MAX}"
 loadConfig "spark.locality.wait" "${SPARK_LOCALITY_WAIT}"
+loadConfig "spark.locality.wait.node" "${SPARK_LOCALITY_WAIT_NODE}"
+loadConfig "spark.locality.wait.process" "${SPARK_LOCALITY_WAIT_PROCESS}"
+loadConfig "spark.locality.wait.rack" "${SPARK_LOCALITY_WAIT_RACK}"
 loadConfig "spark.scheduler.maxRegisteredResourcesWaitingTime" "${SPARK_SCHEDULER_MAX_REGISTERED_RESOURCES_WAITING_TIME}"
 loadConfig "spark.scheduler.minRegisteredResourcesRatio" "${SPARK_SCHEDULER_MIN_REGISTERED_RESOURCES_RATION}"
 loadConfig "spark.scheduler.mode" "${SPARK_SCHEDULER_MODE}"
 loadConfig "spark.scheduler.revive.interval" "${SPARK_SCHEDULER_REVIVE_INTERVAL}"
 loadConfig "spark.scheduler.listenerbus.eventqueue.capacity" "${SPARK_SCHEDULER_LISTENERBUS_EVENTQUEUE_CAPACITY}"
+loadConfig "spark.scheduler.blacklist.unschedulableTaskSetTimeout" "${SPARK_SCHEDULER_BLACKLIST_UNSCHEDULABLE_TASK_SET_TIMEOUT}"
 loadConfig "spark.blacklist.enabled" "${SPARK_BLACKLIST_ENABLED}"
 loadConfig "spark.blacklist.timeout" "${SPARK_BLACKLIST_TIMEOUT}"
 loadConfig "spark.blacklist.task.maxTaskAttemptsPerExecutor" "${SPARK_BLACKLIST_TASK_MAX_TASK_ATTEMPTS_PER_EXECUTOR}"
@@ -198,9 +213,11 @@ loadConfig "spark.stage.maxConsecutiveAttempts" "${SPARK_STAGE_MAX_CONSECUTIVE_A
 # --------------------- DYNAMIC ALLOCATION PROPERTIES ----------------
 loadConfig "spark.dynamicAllocation.enabled" "${SPARK_DYNAMIC_ALLOCATION_ENABLED}"
 loadConfig "spark.dynamicAllocation.executorIdleTimeout" "${SPARK_DYNAMIC_ALLOCATION_EXECUTOR_IDLE_TIMEOUT}"
+loadConfig "spark.dynamicAllocation.initialExecutors" "${SPARK_DYNAMIC_ALLOCATION_INITIAL_EXECUTORS}"
 loadConfig "spark.dynamicAllocation.cachedExecutorIdleTimeout" "${SPARK_DYNAMIC_ALLOCATION_CACHED_EXECUTOR_IDLE_TIMEOUT}"
 loadConfig "spark.dynamicAllocation.maxExecutors" "${SPARK_DYNAMIC_ALLOCATION_MAX_EXECUTORS}"
 loadConfig "spark.dynamicAllocation.minExecutors" "${SPARK_DYNAMIC_ALLOCATION_MIN_EXECUTORS}"
+loadConfig "spark.dynamicAllocation.executorAllocationRatio" "${SPARK_DYNAMIC_ALLOCATION_EXECUTOR_ALLOCATION_RATIO}"
 loadConfig "spark.dynamicAllocation.schedulerBacklogTimeout" "${SPARK_DYNAMIC_ALLOCATION_SCHEDULER_BACKLOG_TIMEOUT}"
 # --------------------------------------------------------------------
 
@@ -249,6 +266,7 @@ loadConfig "spark.streaming.unpersist" "${SPARK_STREAMING_UNPERSIST}"
 loadConfig "spark.streaming.stopGracefullyOnShutdown" "${SPARK_STREAMING_STOP_GRACEFULLY_ON_SHUTDOWN}"
 loadConfig "spark.streaming.kafka.maxRatePerPartition" "${SPARK_STREAMING_KAFKA_MAX_RATE_PER_PARTITION}"
 loadConfig "spark.streaming.kafka.maxRetries" "${SPARK_STREAMING_KAFKA_MAX_RETRIES}"
+loadConfig "spark.streaming.ui.retainedBatches" "${SPARK_STREAMING_UI_RETAINED_BATCHES}"
 loadConfig "spark.streaming.driver.writeAheadLog.closeFileAfterWrite" "${SPARK_STREAMING_DRIVER_WAL_LOG_CLOSE_FILE_AFTER_WRITE}"
 loadConfig "spark.streaming.receiver.writeAheadLog.closeFileAfterWrite" "${SPARK_STREAMING_RECEIVER_WAL_LOG_CLOSE_FILE_AFTER_WRITE}"
 # --------------------------------------------------------------------
@@ -269,4 +287,42 @@ loadConfig "spark.graphx.pregel.checkpointInterval" "${SPARK_GRAPHX_PREGEL_CHECK
 loadConfig "spark.deploy.recoveryMode" "${SPARK_DEPLOY_RECOVERY_MODE}"
 loadConfig "spark.deploy.zookeeper.url" "${SPARK_DEPLOY_ZOOKEEPER_URL}"
 loadConfig "spark.deploy.zookeeper.dir" "${SPARK_DEPLOY_ZOOKEEPER_DIR}"
+# --------------------------------------------------------------------
+
+# --------------------------- YARN PROPERTIES ---------------------------
+loadConfig "spark.yarn.am.memory" ${SPARK_YARN_AM_MEMORY}
+loadConfig "spark.yarn.am.cores" ${SPARK_YARN_AM_CORES}
+loadConfig "spark.yarn.am.waitTime" ${SPARK_YARN_AM_WAIT_TIME}
+loadConfig "spark.yarn.submit.file.replication" ${SPARK_YARN_SUBMIT_FILE_REPLICATION}
+loadConfig "spark.yarn.stagingDir" ${SPARK_YARN_STAGING_DIR}
+loadConfig "spark.yarn.preserve.staging.files" ${SPARK_YARN_PRESERVE_STAGING_FILES}
+loadConfig "spark.yarn.scheduler.heartbeat.interval-ms" ${SPARK_YARN_SCHEDULER_HEARTBEAT_INTERVAL_MS}
+loadConfig "spark.yarn.scheduler.initial-allocation.interval" ${SPARK_YARN_SCHEDULER_INITIAL_ALLOCATION_INTERVAL}
+loadConfig "spark.yarn.max.executor.failures" ${SPARK_YARN_MAX_EXECUTOR_FAILURES}
+loadConfig "spark.yarn.historyServer.address" ${SPARK_YARN_HISTORY_SERVER_ADDRESS}
+loadConfig "spark.yarn.dist.archives" ${SPARK_YARN_DIST_ARCHIVES}
+loadConfig "spark.yarn.dist.files" ${SPARK_YARN_DIST_FILES}
+loadConfig "spark.yarn.dist.jars" ${SPARK_YARN_DIST_JARS}
+loadConfig "spark.yarn.dist.forceDownloadSchemes" ${SPARK_YARN_DIST_FORCE_DOWNLOAD_SCHEMAS}
+loadConfig "spark.executor.instances" ${SPARK_EXECUTOR_INSTANCES}
+loadConfig "spark.yarn.am.memoryOverhead" ${SPARK_YARN_AM_OVERHEAD}
+loadConfig "spark.yarn.queue" ${SPARK_YARN_QUEUE}
+loadConfig "spark.yarn.jars" ${SPARK_YARN_JARS}
+loadConfig "spark.yarn.archive" ${SPARK_YARN_ARCHIVE}
+loadConfig "spark.yarn.containerLauncherMaxThreads" ${SPARK_YARN_CONTAINER_LAUNCHER_MAX_THREADS}
+loadConfig "spark.yarn.am.extraJavaOptions" ${SPARK_YARN_AM_EXTRA_JAVA_OPTIONS}
+loadConfig "spark.yarn.am.extraLibraryPath" ${SPARK_YARN_AM_EXTRA_LIBRARY_PATH}
+loadConfig "spark.yarn.maxAppAttempts" ${SPARK_YARN_MAX_APP_ATTEMPTS}
+loadConfig "spark.yarn.am.attemptFailuresValidityInterval" ${SPARK_YARN_AM_ATTEMPT_FAILURES_VALIDITY_INTERVAL}
+loadConfig "spark.yarn.executor.failuresValidityInterval" ${SPARK_YARN_EXECUTOR_FAILRUES_VALIDITY_INTERVAL}
+loadConfig "spark.yarn.submit.waitAppCompletion" ${SPARK_YARN_SUBMIT_WAIT_APP_COMPLETION}
+loadConfig "spark.yarn.am.nodeLabelExpression" ${SPARK_YARN_AM_NODE_LABEL_EXPRESSION}
+loadConfig "spark.yarn.executor.nodeLabelExpression" ${SPARK_YARN_EXECUTOR_NODE_LABEL_EXPRESSION}
+loadConfig "spark.yarn.tags" ${SPARK_YARN_TAGS}
+loadConfig "spark.yarn.config.gatewayPath" ${SPARK_YARN_CONFIG_GATEWAY_PATH}
+loadConfig "spark.yarn.config.replacementPath" ${SPARK_YARN_CONFIG_REPLACEMENT_PATH}
+loadConfig "spark.yarn.rolledLog.includePattern" ${SPARK_YARN_ROLLED_LOG_INCLUDE_PATTERN}
+loadConfig "spark.yarn.rolledLog.excludePattern" ${SPARK_YARN_ROLLED_LOG_EXCLUDE_PATTERN}
+loadConfig "spark.yarn.blacklist.executor.launch.blacklisting.enabled" ${SPARK_YARN_BLACKLIST_EXECUTOR_LAUNCH_BLACKLISTING_ENABLED}
+loadConfig "spark.yarn.metrics.namespace" ${SPARK_YARN_METRICS_NAMESPACE}
 # --------------------------------------------------------------------

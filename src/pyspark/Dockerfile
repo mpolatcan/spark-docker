@@ -6,10 +6,12 @@ FROM mpolatcan/spark:${SPARK_VERSION}-hadoop-${HADOOP_VERSION}-java${JAVA_VERSIO
 
 ENV PYSPARK_PYTHON="python3"
 
+USER root
 RUN apt-get update && \
     apt-get -y install --no-install-recommends python3 python3-dev python3-pip libpq-dev && \
     pip3 install setuptools wheel && \
     pip3 install pyspark jupyter psycopg2 sqlalchemy && \
     rm -rf /var/lib/apt/lists/*
 
-ENTRYPOINT ["./entrypoint.sh"]
+USER hduser
+ENTRYPOINT ["./spark_entrypoint.sh", "spark"]

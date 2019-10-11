@@ -1,17 +1,9 @@
 #!/usr/bin/env bash
 
-/spark_config_loader.sh
+./haddop_entrypoint.sh $1
 
-function startMaster() {
-    start-master.sh
-}
+./spark_config_loader.sh
 
-function startWorker() {
-    start-slave.sh "spark://${SPARK_MASTER_HOSTNAME}:${SPARK_MASTER_PORT}"
-}
-
-[[ "${SPARK_NODE_TYPE}" == "master" ]] && startMaster
-
-[[ "${SPARK_NODE_TYPE}" == "worker" ]] && startWorker
-
-tail -f /dev/null
+if [[ "$1" == "spark" ]]; then
+  tail -f /dev/null
+fi
