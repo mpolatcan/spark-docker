@@ -1,12 +1,13 @@
 # TODO Cluster mode YARN will be added
 ARG JAVA_VERSION=8
+ARG HADOOP_VERSION=3.2.1
 
-FROM openjdk:${JAVA_VERSION}
+FROM mpolatcan/hadoop:${HADOOP_VERSION}-java${JAVA_VERSION}
 
 MAINTAINER Mutlu Polacan <mutlupolatcan@gmail.com>
 
 ARG SPARK_VERSION=2.3.0
-ARG HADOOP_VERSION=2.7
+ARG SPARK_HADOOP_VERSION=2.7
 
 ENV SPARK_NODE_TYPE "master"
 ENV SPARK_HOME "${HDUSER_HOME}/spark"
@@ -339,12 +340,12 @@ ADD entrypoint.sh ${HDUSER_HOME}/spark_entrypoint.sh
 ADD spark_config_loader.sh ${HDUSER_HOME}/
 
 USER root
-RUN wget http://www-eu.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && \
+RUN wget http://www-eu.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop${SPARK_HADOOP_VERSION}.tgz && \
     mkdir -p ${SPARK_HOME} && \
-    tar -xvzf spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz -C ${HDUSER_HOME} && \
-    rm spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && \
-    mv ${HDUSER_HOME}/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}/* ${SPARK_HOME} && \
-    rm -r ${HDUSER_HOME}/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION} && \
+    tar -xvzf spark-${SPARK_VERSION}-bin-hadoop${SPARK_HADOOP_VERSION}.tgz -C ${HDUSER_HOME} && \
+    rm spark-${SPARK_VERSION}-bin-hadoop${SPARK_HADOOP_VERSION}.tgz && \
+    mv ${HDUSER_HOME}/spark-${SPARK_VERSION}-bin-hadoop${SPARK_HADOOP_VERSION}/* ${SPARK_HOME} && \
+    rm -r ${HDUSER_HOME}/spark-${SPARK_VERSION}-bin-hadoop${SPARK_HADOOP_VERSION} && \
     chmod +x ${HDUSER_HOME}/spark_entrypoint.sh ${HDUSER_HOME}/spark_config_loader.sh && \
     echo "PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin" >> /etc/environment
 
