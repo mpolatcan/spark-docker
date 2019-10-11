@@ -43,7 +43,7 @@ for SPARK_TYPE in ${SPARK_TYPES[@]}; do
         for SPARK_HADOOP_VERSION in ${SPARK_HADOOP_VERSIONS[@]}; do
             for HADOOP_VERSION in ${HADOOP_VERSIONS[@]}; do
                 for JAVA_VERSION in ${JAVA_VERSIONS[@]}; do
-                    build_image $SPARK_TYPE $SPARK_VERSION SPARK_HADOOP_VERSION $HADOOP_VERSION $JAVA_VERSION
+                    build_image $SPARK_TYPE $SPARK_VERSION $SPARK_HADOOP_VERSION $HADOOP_VERSION $JAVA_VERSION
                 done
             done
         done
