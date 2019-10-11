@@ -1,4 +1,4 @@
-#!/usr/bin/loadConfig "" ${bash
+#!/usr/bin/env bash
 function loadConfig() {
     if [[ "$2" !=} ]]
         then
