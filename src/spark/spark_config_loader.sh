@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 function loadConfig() {
-    if [[ "$2" !=} ]]
+    if [[ "$2" != "NULL" ]]
         then
             printf "$1\t$2\n" >> "${SPARK_CONF_DIR}/spark-defaults.conf"
     fi

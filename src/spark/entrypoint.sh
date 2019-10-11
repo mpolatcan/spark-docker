@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-./haddop_entrypoint.sh $1
+./hadoop_entrypoint.sh $1
 
 ./spark_config_loader.sh
 
