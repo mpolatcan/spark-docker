@@ -34,8 +34,8 @@ JAVA_VERSIONS=(
 # $5: JAVA_VERSION
 function build_image() {
   sudo docker build -q -t mpolatcan/$1:$2-hadoop-$4-java$5 --build-arg SPARK_VERSION=$2 --build-arg SPARK_HADOOP_VERSION=$3 --build-arg HADOOP_VERSION=$4 --build-arg JAVA_VERSION=$5 ./src/$1/
-	sudo docker push mpolatcan/$1:$2-hadoop-$3-java$4
-	sudo docker rmi mpolatcan/$1:$2-hadoop-$3-java$4
+	sudo docker push mpolatcan/$1:$2-hadoop-$4-java$5
+	sudo docker rmi mpolatcan/$1:$2-hadoop-$4-java$5
 }
 
 for SPARK_TYPE in ${SPARK_TYPES[@]}; do
