@@ -1,6 +1,7 @@
 spark:
   default:
     parallelism: "NULL"
+
   driver:
     cores: "1"
     maxResultSize: "1g"
@@ -16,6 +17,7 @@ spark:
     bindAddress: "NULL"
     host: "NULL"
     port: "NULL"
+
   executor:
     memory: "1g"
     memoryOverhead: "NULL"
@@ -36,18 +38,26 @@ spark:
     cores: "1"
     heartbeatInterval: "10s"
     instances: "NULL"
+
   extraListeners: "NULL"
+
   local:
     dir: "/tmp"
+
   logConf: "false"
+
   master: "yarn"
+
   submit:
     deployMode: "NULL"
     pyFiles: "NULL"
+
   log:
     callerContext: "NULL"
+
   redaction:
     regex: "NULL"
+
   python:
     profile:
       "": "false"
@@ -55,6 +65,7 @@ spark:
     worker:
       memory: "512m"
       reuse: "true"
+
   files:
     "": "NULL"
     fetchTimeout: "60s"
@@ -62,6 +73,7 @@ spark:
     overwrite: "false"
     maxPartitionBytes: "134217728"
     openCostInBytes: "4194304"
+
   jars:
     "": "NULL"
     packages: "NULL"
@@ -69,15 +81,19 @@ spark:
     ivy: "NULL"
     ivySettings: "NULL"
     repositories: "NULL"
+
   pyspark:
     driver:
       python: "NULL"
     python: "NULL"
+
   reducer:
     maxSizeInFlight: "48m"
     maxReqsInFlight: "NULL"
     maxBlocksInFlightPerAddress: "NULL"
+
   maxRemoteBlockSizeFetchToMem: "NULL"
+
   shuffle:
     compress: "true"
     file:
@@ -107,6 +123,7 @@ spark:
       timeout: "5000"
       maxAttempts: "3"
     memoryFraction: "0.2"
+
   eventlog:
     logBlockUpdates:
       enabled: "false"
@@ -117,7 +134,8 @@ spark:
     enabled: "false"
     overwrite: "false"
     buffer:
-      kb: "100k"
+      kb: "100k",
+
   ui:
     dagGraph:
       retainedRootRDDs: "NULL"
@@ -139,13 +157,16 @@ spark:
       acls:
         "": "NULL"
         groups: "NULL"
+
   worker:
     ui:
       retainedExecutors: "1000"
       retainedDrivers: "1000"
+
   sql:
     ui:
       retainedExecutions: "1000"
+
   streaming:
     ui:
       retainedBatches: "1000"
@@ -166,12 +187,15 @@ spark:
     driver:
       writeAheadLog:
         closeFileAfterWrite: "false"
+
   broadcast:
     compress: "true"
     blockSize: "4m"
     checksum: "NULL"
+
   checkpoint:
     compress: "NULL"
+
   io:
     compression:
       codec: "lz4"
@@ -182,21 +206,26 @@ spark:
       zstd:
         level: "1"
         bufferSize: "32k"
+
   kryo:
     classesToRegister: "NULL"
     referenceTracking: "true"
     registrationRequired: "false"
     registrator: "NULL"
     unsafe: "false"
+
   kryoserializer:
     buffer:
       "": "64k"
       max: "64m"
+
   rdd:
     compress: "false"
+
   serializer:
     "": "org.apache.spark.serializer.JavaSerializer"
     objectStreamReset: "100"
+
   memory:
     fraction: "0.6"
     storageFraction: "0.5"
@@ -204,12 +233,14 @@ spark:
       enabled: "false"
       size: "0"
     useLegacyMode: "false"
+
   storage:
     memoryFraction: "0.2"
     unrollFraction: "0.6"
     replication:
       proactive: "false"
     memoryMapThreshold: "2m"
+
   cleaner:
     periodicGC:
       interval: "30min"
@@ -219,6 +250,7 @@ spark:
         "": "true"
         shuffle: "false"
       cleanCheckpoints: "false"
+
   hadoop:
     cloneConf: "false"
     validateOutputSpecs: "true"
@@ -226,6 +258,7 @@ spark:
       fileoutputcommitter:
         algorithm:
           version: "1"
+
   rpc:
     message:
       maxSize: "128"
@@ -236,18 +269,24 @@ spark:
       wait: "3s"
     askTimeout: "120s"
     lookupTimeout: "120s"
+
   blockManager:
     port: "NULL"
+
   port:
     maxRetries: "16"
+
   cores:
     max: "NULL"
+
+
   locality:
     wait:
       "": "3s"
       node: "NULL"
       process: "NULL"
       rack: "NULL"
+
   scheduler:
     maxRegisteredResourcesWaitingTime: "30s"
     minRegisteredResourcesRation: "0.0"
@@ -259,6 +298,7 @@ spark:
         capacity: "10000"
     blacklist:
       unschedulableTaskSetTimeout: "NULL"
+
   blacklist:
     enabled: "false"
     timeout: "1h"
@@ -274,11 +314,13 @@ spark:
       fetchFailure:
         enabled: "false"
     killBlacklistedExecutors: "false"
+
   speculation:
     "": "false"
     interval: "100ms"
     multiplier: "1.5"
     quantile: "0.75"
+
   task:
     cpus: "1"
     maxFailures: "4"
@@ -287,8 +329,10 @@ spark:
       pollingInterval: "10s"
       threadDump: "true"
       killTimeout: "-1"
+
   stage:
     maxConsecutiveAttempts: "4"
+
   dynamicAllocation:
     enabled: "false"
     executorIdleTimeout: "60s"
@@ -298,19 +342,24 @@ spark:
     minExecutors: "0"
     executorAllocationRatio: "NULL"
     schedulerBacklogTimeout: "1s"
+
   acls:
     enabled: "false"
+
   admin:
     acls:
       "": "NULL"
       groups: "NULL"
+
   user:
     groups:
       mapping: "org.apache.spark.security.ShellBasedGroupsMappingProvider"
+
   authenticate:
     "": "false"
     secret: "NULL"
     enableSaslEncrpytion: "false"
+
   network:
     crypto:
       enabled: "false"
@@ -319,15 +368,19 @@ spark:
       saslFallback: "true"
     sasl:
       serverAlwaysEncrypt: "false"
+
+
   core:
     connection:
       ack:
         wait:
           timeout: "NULL"
+
   modify:
     acls:
       "": "NULL"
       groups: "NULL"
+
   ssl:
     enabled: "false"
     enabledAlgorithms: "NULL"
@@ -340,14 +393,17 @@ spark:
     trustStore: "NULL"
     trustStorePassword: "NULL"
     trustStoreType: "JKS"
+
   graphx:
     pregel:
       checkpointInterval: "-1"
+
   deploy:
     recoveryMode: "NULL"
     zookeeper:
       url: "NULL"
       dir: "NULL"
+
   yarn:
     am:
       memory: "NULL"

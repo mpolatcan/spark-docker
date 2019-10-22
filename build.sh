@@ -24,7 +24,6 @@ SPARK_HADOOP_VERSIONS=(
 
 JAVA_VERSIONS=(
     "8"
-    "11"
 )
 
 function build_base_image() {
