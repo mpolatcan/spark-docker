@@ -1,0 +1,36 @@
+base_dockerfile_template: |
+  ARG JAVA_VERSION=8
+  ARG HADOOP_VERSION=3.2.1
+
+  FROM mpolatcan/hadoop:${{HADOOP_VERSION}}-java${{JAVA_VERSION}}
+
+  MAINTAINER Mutlu Polacan <mutlupolatcan@gmail.com>
+
+  ENV SPARK_HOME "${{HDUSER_HOME}}/spark"
+  ENV SPARK_CONF_DIR="${{SPARK_HOME}}/conf" \
+      PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin \
+  {env_vars}
+
+  ADD entrypoint.sh ${{HDUSER_HOME}}/spark_entrypoint.sh
+  ADD config_loader.sh ${{HDUSER_HOME}}/spark_config_loader.sh
+
+  USER root
+  RUN mkdir -p ${{SPARK_HOME}} && \
+      chmod +x ${{HDUSER_HOME}}/spark_config_loader.sh ${{HDUSER_HOME}}/spark_entrypoint.sh
+
+config_loader_sh_template: |
+  #!/usr/bin/env bash
+  function load_config() {{
+    if [[ "$2" != "NULL" ]]
+      then
+        printf "$1\t$2\n" >> "${{SPARK_CONF_DIR}}/$3"
+    fi
+  }}
+
+  {load_fn_calls}
+
+config_files:
+  - path: spark_configs/spark-defaults.yaml
+    filename: spark-defaults.conf
+
+output_dir: ../../base
