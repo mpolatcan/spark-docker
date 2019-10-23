@@ -1,7 +1,7 @@
 version: "3.5"
 services:
   master:
-    image: mpolatcan/pyspark:2.3.4-hadoop-3.2.1-java8
+    image: mpolatcan/pyspark:2.4.4-hadoop-3.2.1-java8
     container_name: master
     hostname: master
     environment:
@@ -19,7 +19,7 @@ services:
       - 8480:8480 # journalnode port
 
   worker:
-    image: mpolatcan/pyspark:2.3.4-hadoop-3.2.1-java8
+    image: mpolatcan/pyspark:2.4.4-hadoop-3.2.1-java8
     environment:
       - HADOOP_NODE_TYPE=datanode
       - FS_HOSTNAME=master
