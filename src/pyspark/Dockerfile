@@ -4,6 +4,8 @@ ARG JAVA_VERSION=8
 
 FROM mpolatcan/spark:${SPARK_VERSION}-hadoop-${HADOOP_VERSION}-java${JAVA_VERSION}
 
+ARG SPARK_VERSION=""
+
 MAINTAINER Mutlu Polatcan <mutlupolatcan@gmail.com>
 
 ENV PYSPARK_VIRTUALENV="${HDUSER_HOME}/hduser_venv"
@@ -18,7 +20,7 @@ RUN apt-get update && \
     pip3 install setuptools wheel virtualenv && \
     mkdir -p ${PYSPARK_VIRTUALENV} && \
     virtualenv -p python3 ${PYSPARK_VIRTUALENV} && \
-    ${PYSPARK_VIRTUALENV}/bin/pip3 install pyspark jupyter psycopg2 sqlalchemy && \
+    spark_version=${SPARK_VERSION} && ${PYSPARK_VIRTUALENV}/bin/pip3 install pyspark~=${spark_version%.*}.0 jupyter psycopg2-binary sqlalchemy && \
     chown -R hduser:hadoop ${PYSPARK_VIRTUALENV} && \
     rm -rf /var/lib/apt/lists/*
 
