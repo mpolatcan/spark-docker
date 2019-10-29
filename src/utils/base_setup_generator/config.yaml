@@ -1,6 +1,6 @@
 base_dockerfile_template: |
-  ARG JAVA_VERSION=8
-  ARG HADOOP_VERSION=3.2.1
+  ARG JAVA_VERSION=""
+  ARG HADOOP_VERSION=""
 
   FROM mpolatcan/hadoop:${{HADOOP_VERSION}}-java${{JAVA_VERSION}}
 
