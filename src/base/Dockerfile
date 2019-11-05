@@ -1,7 +1,9 @@
 ARG JAVA_VERSION=""
 ARG HADOOP_VERSION=""
+ARG POLYNOTE_VERSION=""
 
 FROM mpolatcan/hadoop:${HADOOP_VERSION}-java${JAVA_VERSION}
+FROM mpolatcan/polynote:${POLYNOTE_VERSION}-java${JAVA_VERSION}
 
 MAINTAINER Mutlu Polacan <mutlupolatcan@gmail.com>
 
