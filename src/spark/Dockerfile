@@ -3,7 +3,7 @@ ARG HADOOP_VERSION=""
 
 FROM mpolatcan/spark:base-hadoop-${HADOOP_VERSION}-java${JAVA_VERSION}
 
-MAINTAINER Mutlu Polacan <mutlupolatcan@gmail.com>
+MAINTAINER Mutlu Polatcan <mutlupolatcan@gmail.com>
 
 ARG SPARK_VERSION=""
 ARG SPARK_HADOOP_VERSION=""

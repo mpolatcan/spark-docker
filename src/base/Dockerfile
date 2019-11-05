@@ -5,7 +5,7 @@ ARG POLYNOTE_VERSION=""
 FROM mpolatcan/hadoop:${HADOOP_VERSION}-java${JAVA_VERSION}
 FROM mpolatcan/polynote:${POLYNOTE_VERSION}-java${JAVA_VERSION}
 
-MAINTAINER Mutlu Polacan <mutlupolatcan@gmail.com>
+MAINTAINER Mutlu Polatcan <mutlupolatcan@gmail.com>
 
 ENV SPARK_HOME "${HDUSER_HOME}/spark"
 ENV SPARK_CONF_DIR="${SPARK_HOME}/conf" \
