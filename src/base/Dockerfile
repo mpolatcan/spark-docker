@@ -6,7 +6,8 @@ FROM mpolatcan/hadoop:${HADOOP_VERSION}-java${JAVA_VERSION}
 MAINTAINER Mutlu Polatcan <mutlupolatcan@gmail.com>
 
 ARG LIVY_VERSION=""
-ARG LIVY_DOWNLOAD_LINK="https://www-eu.apache.org/dist/incubator/livy/${LIVY_VERSION}-incubating/apache-livy-${LIVY_VERSION}-incubating-bin.zip"
+ARG LIVY_ZIP_FOLDER_NAME="apache-livy-${LIVY_VERSION}-incubating-bin"
+ARG LIVY_DOWNLOAD_LINK="https://www-eu.apache.org/dist/incubator/livy/${LIVY_VERSION}-incubating/${LIVY_ZIP_FOLDER_NAME}.zip"
 
 ENV SPARK_HOME="${HDUSER_HOME}/spark" \
     LIVY_HOME="${HDUSER_HOME}/livy"
@@ -323,7 +324,7 @@ USER root
 RUN mkdir -p ${SPARK_HOME} ${LIVY_HOME} && \
     chmod +x ${HDUSER_HOME}/spark_config_loader.sh ${HDUSER_HOME}/spark_entrypoint.sh && \
     wget ${LIVY_DOWNLOAD_LINK} && \
-    unzip ${LIVY_ZIP_FOLDER_NAME}.tgz && \
+    unzip ${LIVY_ZIP_FOLDER_NAME}.zip && \
     mv ${HDUSER_HOME}/${LIVY_ZIP_FOLDER_NAME}/* ${LIVY_HOME} && \
     rm -r ${HDUSER_HOME}/${LIVY_ZIP_FOLDER_NAME} && \
     chown -R hduser:hadoop ${LIVY_HOME}

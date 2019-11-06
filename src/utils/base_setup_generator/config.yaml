@@ -7,7 +7,8 @@ base_dockerfile_template: |
   MAINTAINER Mutlu Polatcan <mutlupolatcan@gmail.com>
 
   ARG LIVY_VERSION=""
-  ARG LIVY_DOWNLOAD_LINK="https://www-eu.apache.org/dist/incubator/livy/${{LIVY_VERSION}}-incubating/apache-livy-${{LIVY_VERSION}}-incubating-bin.zip"
+  ARG LIVY_ZIP_FOLDER_NAME="apache-livy-${{LIVY_VERSION}}-incubating-bin"
+  ARG LIVY_DOWNLOAD_LINK="https://www-eu.apache.org/dist/incubator/livy/${{LIVY_VERSION}}-incubating/${{LIVY_ZIP_FOLDER_NAME}}.zip"
 
   ENV SPARK_HOME="${{HDUSER_HOME}}/spark" \
       LIVY_HOME="${{HDUSER_HOME}}/livy"
