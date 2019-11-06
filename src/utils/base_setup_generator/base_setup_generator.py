@@ -12,22 +12,23 @@ class Constants:
     KEY_OUTPUT_DIR = "output_dir"
     KEY_PATH = "path"
     KEY_FILENAME = "filename"
+    KEY_CONFIG_TYPE = "config_type"
     DOCKER_ENV_VAR_FMT = "\t{env_var_name}=\"{env_var_value}\" \\"
-    CONFIG_LOADER_STD_STATEMENT_FMT = "load_config \"{property}\" ${{{env_var_name}}} \"{config_filename}\""
+    CONFIG_LOADER_STD_STATEMENT_FMT = "load_config \"{property}\" ${{{env_var_name}}} \"{config_filename}\" \"{config_type}\""
 
 
 class BaseSetupGenerator:
     def __init__(self, config_filename):
         self.__config = yaml.safe_load(open(config_filename, "r"))
 
-    def __get_infos(self, data, config_filename, prefix=None):
+    def __get_infos(self, data, config_filename, config_type, prefix=None):
         docker_env_vars, load_fn_calls = [], []
 
         for property, value in data.items():
             property_name = prefix + "." + property if prefix else property
 
             if isinstance(value, dict):
-                _docker_env_vars, _load_fn_calls = self.__get_infos(value, config_filename, property_name)
+                _docker_env_vars, _load_fn_calls = self.__get_infos(value, config_filename, config_type, property_name)
                 docker_env_vars.extend(_docker_env_vars)
                 load_fn_calls.extend(_load_fn_calls)
             else:
@@ -35,7 +36,9 @@ class BaseSetupGenerator:
                 env_var_name = property_name.upper().replace(".", "_").replace("-", "_")
 
                 docker_env_vars.append(Constants.DOCKER_ENV_VAR_FMT.format(env_var_name=env_var_name, env_var_value=value))
-                load_fn_calls.append(Constants.CONFIG_LOADER_STD_STATEMENT_FMT.format(property=property_name, env_var_name=env_var_name, config_filename=config_filename))
+                load_fn_calls.append(Constants.CONFIG_LOADER_STD_STATEMENT_FMT.format(
+                    property=property_name, env_var_name=env_var_name, config_filename=config_filename, config_type=config_type)
+                )
 
         return docker_env_vars, load_fn_calls
 
@@ -43,10 +46,9 @@ class BaseSetupGenerator:
         docker_env_vars, load_fn_calls = [], []
 
         for config_info in self.__config[Constants.KEY_CONFIG_FILES]:
-            config_file_path = config_info[Constants.KEY_PATH]
-            config_filename = config_info[Constants.KEY_FILENAME]
+            config_file_path, config_filename, config_type = config_info[Constants.KEY_PATH], config_info[Constants.KEY_FILENAME], config_info[Constants.KEY_CONFIG_TYPE]
 
-            _docker_env_vars, _load_fn_calls = self.__get_infos(yaml.safe_load(open(config_file_path, "r")), config_filename)
+            _docker_env_vars, _load_fn_calls = self.__get_infos(yaml.safe_load(open(config_file_path, "r")), config_filename, config_type)
             docker_env_vars.extend(_docker_env_vars)
 
             load_fn_calls.extend(_load_fn_calls)

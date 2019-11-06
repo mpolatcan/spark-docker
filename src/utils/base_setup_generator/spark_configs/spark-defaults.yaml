@@ -134,7 +134,7 @@ spark:
     enabled: "false"
     overwrite: "false"
     buffer:
-      kb: "100k",
+      kb: "100k"
 
   ui:
     dagGraph:
