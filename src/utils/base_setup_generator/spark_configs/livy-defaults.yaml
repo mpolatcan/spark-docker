@@ -41,11 +41,11 @@ livy:
       modify-users: "NULL"
       view-users: "NULL"
     auth:
-      type: "kerberos"
+      type: "NULL"
       kerberos:
         principal: "NULL"
         keytab: "NULL"
-        name-rules: "DEFAULT"
+        name-rules: "NULL"
   ui:
     basePath: ""
     enabled: "true"
