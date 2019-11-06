@@ -5,7 +5,7 @@
 ./spark_config_loader.sh
 
 if [[ "${HADOOP_NODE_TYPE}" == "namenode" ]]; then
-  ./livy-server start
+  livy-server start
 fi
 
 if [[ "$1" == "spark" ]]; then
