@@ -325,6 +325,6 @@ RUN mkdir -p ${SPARK_HOME} ${LIVY_HOME} && \
     chmod +x ${HDUSER_HOME}/spark_config_loader.sh ${HDUSER_HOME}/spark_entrypoint.sh && \
     wget ${LIVY_DOWNLOAD_LINK} && \
     unzip ${LIVY_ZIP_FOLDER_NAME}.zip && \
-    mv ${HDUSER_HOME}/${LIVY_ZIP_FOLDER_NAME}/* ${LIVY_HOME} && \
-    rm -r ${HDUSER_HOME}/${LIVY_ZIP_FOLDER_NAME} && \
+    mv ${LIVY_ZIP_FOLDER_NAME}/* ${LIVY_HOME} && \
+    rm -r ${LIVY_ZIP_FOLDER_NAME} ${LIVY_ZIP_FOLDER_NAME}.zip && \
     chown -R hduser:hadoop ${LIVY_HOME}
