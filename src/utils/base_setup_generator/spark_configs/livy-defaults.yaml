@@ -47,11 +47,11 @@ livy:
         keytab: "NULL"
         name-rules: "NULL"
   ui:
-    basePath: ""
+    basePath: "NULL"
     enabled: "true"
   spark:
-    master: "local"
-    deploy-mode: "NULL"
+    master: "yarn"
+    deployMode: "client"
   impersonation:
     enabled: "true"
   cache-log:

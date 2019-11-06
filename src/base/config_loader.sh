@@ -300,7 +300,7 @@ load_config "livy.server.auth.kerberos.name-rules" ${LIVY_SERVER_AUTH_KERBEROS_N
 load_config "livy.ui.basePath" ${LIVY_UI_BASEPATH} "livy.conf" "livy"
 load_config "livy.ui.enabled" ${LIVY_UI_ENABLED} "livy.conf" "livy"
 load_config "livy.spark.master" ${LIVY_SPARK_MASTER} "livy.conf" "livy"
-load_config "livy.spark.deploy-mode" ${LIVY_SPARK_DEPLOY_MODE} "livy.conf" "livy"
+load_config "livy.spark.deployMode" ${LIVY_SPARK_DEPLOYMODE} "livy.conf" "livy"
 load_config "livy.impersonation.enabled" ${LIVY_IMPERSONATION_ENABLED} "livy.conf" "livy"
 load_config "livy.cache-log.size" ${LIVY_CACHE_LOG_SIZE} "livy.conf" "livy"
 load_config "livy.rsc.jars" ${LIVY_RSC_JARS} "livy.conf" "livy"
