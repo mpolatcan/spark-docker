@@ -3,7 +3,7 @@
 version: "3.5"
 services:
   master:
-    image: mpolatcan/spark:2.4.4-hadoop-3.2.1-java8
+    image: mpolatcan/pyspark:2.3.4-hadoop-3.2.1-java8
     container_name: master
     hostname: master
     environment:
@@ -22,9 +22,10 @@ services:
       - 9864:9864 # datanode port
       - 9870:9870 # namenode port
       - 8480:8480 # journalnode port
+      - 8998:8998 # livy port
 
   worker:
-    image: mpolatcan/spark:2.4.4-hadoop-3.2.1-java8
+    image: mpolatcan/pyspark:2.3.4-hadoop-3.2.1-java8
     environment:
       HADOOP_DAEMONS: |
         datanode
