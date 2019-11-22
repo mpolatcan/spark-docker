@@ -1,35 +1,39 @@
+# Written by Mutlu Polatcna
+# 22.11.2019
 version: "3"
 services:
   spark-master:
     image: mpolatcan/pyspark:2.3.4-hadoop-3.2.1-java8
-    container_name: resourcemanager
-    hostname: resourcemanager
+    container_name: spark-master
+    hostname: spark-master
     environment:
       HADOOP_DAEMONS: |
           resourcemanager
-      DFS_NAMENODE_HOSTNAME: "namenode"
+      SPARK_SERVICES: |
+          livy
+      DFS_NAMENODE_HOSTNAME: "hdfs-master"
       YARN_SCHEDULER_MINIMUM_ALLOCATION_MB: "128"
       YARN_SCHEDULER_MAXIMUM_ALLOCATION_MB: "1536"
     ports:
       - 8088:8088
+      - 8998:8998
 
   spark-worker:
     image: mpolatcan/pyspark:2.3.4-hadoop-3.2.1-java8
     environment:
       HADOOP_DAEMONS: |
           nodemanager
-      DFS_NAMENODE_HOSTNAME: "namenode"
-      YARN_RESOURCEMANAGER_HOSTNAME: "resourcemanager"
+      DFS_NAMENODE_HOSTNAME: "hdfs-master"
+      YARN_RESOURCEMANAGER_HOSTNAME: "spark-master"
       YARN_NODEMANAGER_RESOURCE_MEMORY_MB: "1536"
       YARN_NODEMANAGER_RESOURCE_CPU_VCORES: "2"
     ports:
       - 8042
-      - 8
 
   hdfs-master:
     image: mpolatcan/pyspark:2.3.4-hadoop-3.2.1-java8
-    container_name: namenode
-    hostname: namenode
+    container_name: hdfs-master
+    hostname: hdfs-master
     environment:
       HADOOP_DAEMONS: |
           namenode
@@ -41,6 +45,6 @@ services:
     environment:
       HADOOP_DAEMONS: |
           datanode
-      DFS_NAMENODE_HOSTNAME: "namenode"
+      DFS_NAMENODE_HOSTNAME: "hdfs-master"
     ports:
       - 9864

@@ -12,7 +12,9 @@ if [[ ${SPARK_SERVICES} != "NULL" ]]; then
   echo "Awaiting Hadoop services to be started..."
   sleep 10
   echo "Starting Spark services..."
+
   for spark_service in ${SPARK_SERVICES[@]}; do
+    echo "Starting Spark service \"$spark_service\""
     ${spark_services[$spark_service]}
   done
 fi
