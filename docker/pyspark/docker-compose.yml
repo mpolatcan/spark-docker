@@ -3,7 +3,7 @@
 version: "3.5"
 services:
   master:
-    image: mpolatcan/pyspark:2.4.4-hadoop-3.2.1-java8
+    image: mpolatcan/pyspark:2.3.4-hadoop-3.2.1-java8
     container_name: master
     hostname: master
     environment:
@@ -11,11 +11,11 @@ services:
         namenode
         resourcemanager
         secondarynamenode
-      YARN_SCHEDULER_MINIMUM_ALLOCATION_MB: 128
-      YARN_SCHEDULER_MAXIMUM_ALLOCATION_MB: 1536
-      YARN_NODEMANAGER_VMEM_CHECK_ENABLED: false
-      YARN_NODEMANAGER_RESOURCE_MEMORY_MB: 1536
-      YARN_NODEMANAGER_RESOURCE_CPU_VCORES: 2
+      YARN_SCHEDULER_MINIMUM_ALLOCATION_MB: "128"
+      YARN_SCHEDULER_MAXIMUM_ALLOCATION_MB: "1536"
+      YARN_NODEMANAGER_VMEM_CHECK_ENABLED: "false"
+      YARN_NODEMANAGER_RESOURCE_MEMORY_MB: "1536"
+      YARN_NODEMANAGER_RESOURCE_CPU_VCORES: "2"
     ports:
       - 8088:8088 # resource manager port
       - 9868:9868 # secondary namenode port
@@ -24,14 +24,14 @@ services:
       - 8480:8480 # journalnode port
 
   worker:
-    image: mpolatcan/pyspark:2.4.4-hadoop-3.2.1-java8
+    image: mpolatcan/pyspark:2.3.4-hadoop-3.2.1-java8
     environment:
       HADOOP_DAEMONS: |
         datanode
         nodemanager
-      DFS_NAMENODE_HOSTNAME: master
-      YARN_RESOURCEMANAGER_HOSTNAME: master
-      YARN_NODEMANAGER_RESOURCE_MEMORY_MB: 1536
-      YARN_NODEMANAGER_RESOURCE_CPU_VCORES: 2
+      DFS_NAMENODE_HOSTNAME: "master"
+      YARN_RESOURCEMANAGER_HOSTNAME: "master"
+      YARN_NODEMANAGER_RESOURCE_MEMORY_MB: "1536"
+      YARN_NODEMANAGER_RESOURCE_CPU_VCORES: "2"
     links:
       - master

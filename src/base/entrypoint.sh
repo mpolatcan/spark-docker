@@ -4,12 +4,13 @@
 
 ./spark_config_loader.sh
 
-if [[ "${HADOOP_NODE_TYPE}" == "namenode" ]]; then
-  echo "Awaiting Hadoop services to be started..."
-  sleep 15
-  echo "Starting Apache Livy server..."
-  livy-server start
-fi
+for daemon in ${HADOOP_DAEMONS[@]}; do
+    if [[ "$daemon" == "namenode" ]]; then
+      echo "Awaiting Hadoop services to be started..."
+      sleep 10
+      echo "Starting Apache Livy server..."
+    fi
+done
 
 if [[ "$1" == "spark" ]]; then
   tail -f /dev/null
