@@ -9,6 +9,7 @@ for daemon in ${HADOOP_DAEMONS[@]}; do
       echo "Awaiting Hadoop services to be started..."
       sleep 10
       echo "Starting Apache Livy server..."
+      livy-server start
     fi
 done
 
