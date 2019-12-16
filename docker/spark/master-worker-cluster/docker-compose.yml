@@ -11,6 +11,8 @@ services:
         namenode
         resourcemanager
         secondarynamenode
+      SPARK_SERVICES: |
+        livy
       YARN_SCHEDULER_MINIMUM_ALLOCATION_MB: "128"
       YARN_SCHEDULER_MAXIMUM_ALLOCATION_MB: "1536"
       YARN_NODEMANAGER_VMEM_CHECK_ENABLED: "false"

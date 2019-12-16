@@ -1,6 +1,6 @@
 # Written by Mutlu Polatcna
 # 22.11.2019
-version: "3"
+version: "3.5"
 services:
   spark-master:
     image: mpolatcan/pyspark:2.3.4-hadoop-3.2.1-java8
@@ -8,9 +8,9 @@ services:
     hostname: spark-master
     environment:
       HADOOP_DAEMONS: |
-          resourcemanager
+        resourcemanager
       SPARK_SERVICES: |
-          livy
+        livy
       DFS_NAMENODE_HOSTNAME: "hdfs-master"
       YARN_SCHEDULER_MINIMUM_ALLOCATION_MB: "128"
       YARN_SCHEDULER_MAXIMUM_ALLOCATION_MB: "1536"
@@ -22,7 +22,7 @@ services:
     image: mpolatcan/pyspark:2.3.4-hadoop-3.2.1-java8
     environment:
       HADOOP_DAEMONS: |
-          nodemanager
+        nodemanager
       DFS_NAMENODE_HOSTNAME: "hdfs-master"
       YARN_RESOURCEMANAGER_HOSTNAME: "spark-master"
       YARN_NODEMANAGER_RESOURCE_MEMORY_MB: "1536"
