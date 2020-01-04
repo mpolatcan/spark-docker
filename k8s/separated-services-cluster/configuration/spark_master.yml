@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: spark-master
+  labels:
+    app: spark
+    unit: spark-master
+data:
+  HADOOP_DAEMONS: |
+    resourcemanager
+  SPARK_SERVICES: |
+    livy
+  DFS_NAMENODE_HOSTNAME: "hdfs-master-0.spark.default"
+  YARN_SCHEDULER_MINIMUM_ALLOCATION_MB: "128"
+  YARN_SCHEDULER_MAXIMUM_ALLOCATION_MB: "1536"

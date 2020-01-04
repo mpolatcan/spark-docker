@@ -36,7 +36,7 @@ services:
     hostname: hdfs-master
     environment:
       HADOOP_DAEMONS: |
-          namenode
+        namenode
     ports:
       - 9870:9870
 
@@ -44,7 +44,7 @@ services:
     image: mpolatcan/pyspark:2.3.4-hadoop-3.2.1-java8
     environment:
       HADOOP_DAEMONS: |
-          datanode
+        datanode
       DFS_NAMENODE_HOSTNAME: "hdfs-master"
     ports:
       - 9864

@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: spark-master-healthchecker
+  labels:
+    app: spark
+data:
+  HEALTHCHECK_SCRIPT: |
+    apt-get update
+    apt-get -y install netcat
+
+    echo "Spark Master healtcheck started..."
+    nc -z $YARN_RESOURCEMANAGER_HOSTNAME $YARN_RESOURCEMANAGER_WEBAPP_PORT
+    result=$?
+
+    until [[ $result -eq 0 ]]; do
+      echo "Waiting Spark Master is ready..."
+      sleep 2
+      nc -z $YARN_RESOURCEMANAGER_HOSTNAME $YARN_RESOURCEMANAGER_WEBAPP_PORT
+      result=$?
+    done
+
+    echo "Spark Master is ready ✔"

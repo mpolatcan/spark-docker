@@ -1,0 +1,92 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: spark-worker
+  labels:
+    app: spark
+    unit: spark-worker
+spec:
+  serviceName: spark
+  selector:
+    matchLabels:
+      app: spark
+      unit: spark-worker
+  template:
+    metadata:
+      name: spark-worker
+      labels:
+        app: spark
+        unit: spark-worker
+    spec:
+      restartPolicy: Always
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - topologyKey: kubernetes.io/hostname
+              labelSelector:
+                matchExpressions:
+                  - key: unit
+                    operator: In
+                    values:
+                      - spark-master
+                      - spark-worker
+      initContainers:
+        - name: spark-master-await
+          image: ubuntu
+          command:
+            - /bin/bash
+          args:
+            - -c
+            - |
+              TODO Write await script of Spark master
+        - name: spark-worker-init
+          image: mpolatcan/pyspark:2.3.4-hadoop-3.2.1-java8
+          imagePullPolicy: Always
+          command:
+            - /bin/bash
+          args:
+            - -c
+            - $(INIT_SCRIPT)
+          envFrom:
+            - configMapRef:
+                name: spark-init
+          volumeMounts:
+            - mountPath: /spark-state
+              name: spark-worker-volume
+      containers:
+        - name: spark-worker
+          image: mpolatcan/pyspark:2.3.4-hadoop-3.2.1-java8
+          imagePullPolicy: Always
+          envFrom:
+            - configMapRef:
+                name: spark-worker
+          volumeMounts:
+            - mountPath: /home/hduser
+              name: spark-worker-volume
+          ports:
+            - containerPort: 8042
+          livenessProbe:
+            tcpSocket:
+              port: 8042
+            initialDelaySeconds: 15
+            periodSeconds: 2
+            failureThreshold: 3
+          readinessProbe:
+            tcpSocket:
+              port: 8042
+            initialDelaySeconds: 15
+            periodSeconds: 2
+            failureThreshold: 3
+      securityContext:
+        fsGroup: 1000
+  volumeClaimTemplates:
+    - metadata:
+        name: spark-worker-volume
+      spec:
+        storageClassName: gce-pd-hdd
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 50Gi
+
