@@ -32,14 +32,6 @@ spec:
                       - hdfs-slave
                       - hdfs-master
       initContainers:
-        - name: hdfs-master-await
-          image: ubuntu
-          command:
-            - /bin/bash
-          args:
-            - -c
-            - |
-              TODO Write await script of HDFS master
         - name: hdfs-slave-init
           image: mpolatcan/pyspark:2.3.4-hadoop-3.2.1-java8
           imagePullPolicy: Always

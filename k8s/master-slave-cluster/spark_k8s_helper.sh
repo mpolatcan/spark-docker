@@ -4,6 +4,7 @@ SPARK_K8S_FILES=(
   # ---------------------------- CONFIGURATIONS ----------------------------
   "configuration/spark_init.yml"
   "configuration/spark_master.yml"
+  "configuration/spark_master_healthchecker.yml"
   "configuration/spark_worker.yml"
   # ------------------------------------------------------------------------
 

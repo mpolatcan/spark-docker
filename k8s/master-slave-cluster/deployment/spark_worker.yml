@@ -31,19 +31,6 @@ spec:
               topologyKey: kubernetes.io/hostname
       restartPolicy: Always
       initContainers:
-        - name: spark-master-healthchecker
-          image: mpolatcan/pyspark:2.3.4-hadoop-3.2.1-java8
-          imagePullPolicy: Always
-          command:
-            - /bin/bash
-          args:
-            - -c
-            - $(HEALTHCHECK_SCRIPT)
-          envFrom:
-            - configMapRef:
-                name: spark-master-healthchecker
-            - configMapRef:
-                name: spark-worker
         - name: spark-worker-init
           image: mpolatcan/pyspark:2.3.4-hadoop-3.2.1-java8
           imagePullPolicy: Always
