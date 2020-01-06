@@ -1,4 +1,4 @@
-name: Spark Docker Image Publish
+name: spark-docker (master)
 
 on: [push]
 
