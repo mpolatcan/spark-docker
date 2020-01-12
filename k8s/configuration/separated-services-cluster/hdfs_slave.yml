@@ -1,0 +1,13 @@
+# Written by Mutlu Polatcan
+# 12.01.2020
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hdfs-slave
+  labels:
+    app: spark
+    unit: hdfs-slave
+data:
+  HADOOP_DAEMONS: |
+    datanode
+  DFS_NAMENODE_HOSTNAME: "hdfs-master-0.spark.default"

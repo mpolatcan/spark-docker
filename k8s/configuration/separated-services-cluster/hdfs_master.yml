@@ -1,0 +1,12 @@
+# Written by Mutlu Polatcan
+# 12.01.2020
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hdfs-master
+  labels:
+    app: spark
+    unit: hdfs-master
+data:
+  HADOOP_DAEMONS: |
+    namenode
