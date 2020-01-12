@@ -10,7 +10,7 @@ metadata:
 data:
   HADOOP_DAEMONS: |
     resourcemanager
-  SPARK_SERVICES: |
+  SPARK_DAEMONS: |
     livy
   DFS_NAMENODE_HOSTNAME: "hdfs-master-0.spark.default"
   YARN_SCHEDULER_MINIMUM_ALLOCATION_MB: "128"

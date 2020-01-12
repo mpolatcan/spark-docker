@@ -16,10 +16,10 @@ if [[ "${HADOOP_DAEMONS}" != "NULL" ]]; then
   # Load Spark configurations
   ./spark_config_loader.sh
 
-  if [[ "${SPARK_SERVICES}" != "NULL" ]]; then
+  if [[ "${SPARK_DAEMONS}" != "NULL" ]]; then
     __log__ "Starting Spark services..."
 
-    for spark_service in ${SPARK_SERVICES[@]}; do
+    for spark_service in ${SPARK_DAEMONS[@]}; do
       __log__ "Starting Spark service \"$spark_service\""
       ${spark_services[$spark_service]}
     done

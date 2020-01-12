@@ -77,7 +77,7 @@ spec:
     - metadata:
         name: spark-worker-volume
       spec:
-        storageClassName: gce-pd-hdd
+        storageClassName: do-block-storage
         accessModes:
           - ReadWriteOnce
         resources:
