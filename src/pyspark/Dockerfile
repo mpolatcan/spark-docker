@@ -19,7 +19,7 @@ RUN apt-get update && \
     apt-get -y install --no-install-recommends python3 python3-pip && \
     pip3 install setuptools wheel virtualenv && \
     mkdir -p ${PYSPARK_VIRTUALENV} && \
-    virtualenv -p python3 ${PYSPARK_VIRTUALENV} && \
+    virtualenv -p python3 --always-copy ${PYSPARK_VIRTUALENV} && \
     spark_version=${SPARK_VERSION} && ${PYSPARK_VIRTUALENV}/bin/pip3 install pyspark~=${spark_version%.*}.0 && \
     chown -R hduser:hadoop ${PYSPARK_VIRTUALENV} && \
     rm -rf /var/lib/apt/lists/*
