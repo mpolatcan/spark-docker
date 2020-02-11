@@ -20,7 +20,7 @@ RUN apt-get update && \
     pip3 install virtualenv && \
     mkdir -p ${PYSPARK_VIRTUALENV} && \
     virtualenv -p python3 ${PYSPARK_VIRTUALENV} && \
-    /bin/bash -c "source ${PYSPARK_VIRTUALENV}/bin/activate && spark_version=${SPARK_VERSION} && pip3 install pyspark~=${spark_version%.*}.0 && deactivate" && \
+    /bin/bash -c "source ${PYSPARK_VIRTUALENV}/bin/activate && echo $(which pip) && pip3 install pyspark~=${SPARK_VERSION%.*}.0 && deactivate" && \
     chown -R hduser:hadoop ${PYSPARK_VIRTUALENV} && \
     rm -rf /var/lib/apt/lists/*
 
