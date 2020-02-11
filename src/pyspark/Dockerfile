@@ -17,7 +17,7 @@ ENV PYTHONPATH="${PYSPARK_VIRTUALENV}/bin/python3" \
 USER root
 RUN apt-get update && \
     apt-get -y install --no-install-recommends python3 python3-dev python3-pip && \
-    pip3 install setuptools wheel virtualenv && \
+    pip3 install virtualenv && \
     mkdir -p ${PYSPARK_VIRTUALENV} && \
     virtualenv -p python3 ${PYSPARK_VIRTUALENV} && \
     spark_version=${SPARK_VERSION} && ${PYSPARK_VIRTUALENV}/bin/pip3 install pyspark~=${spark_version%.*}.0 && \
