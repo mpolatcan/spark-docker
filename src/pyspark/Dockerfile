@@ -4,7 +4,6 @@ ARG JAVA_VERSION=""
 FROM mpolatcan/spark:${SPARK_VERSION}-hadoop-${HADOOP_VERSION}-java${JAVA_VERSION}
 
 ARG SPARK_VERSION=""
-ARG VIRTUALENV_VERSION=""
 
 MAINTAINER Mutlu Polatcan <mutlupolatcan@gmail.com>
 

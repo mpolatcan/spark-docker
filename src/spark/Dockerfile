@@ -6,8 +6,7 @@ FROM mpolatcan/spark:base-hadoop-${HADOOP_VERSION}-java${JAVA_VERSION}
 MAINTAINER Mutlu Polatcan <mutlupolatcan@gmail.com>
 
 ARG SPARK_VERSION=""
-ARG SPARK_HADOOP_VERSION=""
-ARG SPARK_ZIP_FOLDER_NAME="spark-${SPARK_VERSION}-bin-hadoop${SPARK_HADOOP_VERSION}"
+ARG SPARK_ZIP_FOLDER_NAME="spark-${SPARK_VERSION}-bin-without-hadoop"
 ARG SPARK_DOWNLOAD_LINK="http://www-eu.apache.org/dist/spark/spark-${SPARK_VERSION}/${SPARK_ZIP_FOLDER_NAME}.tgz"
 
 USER root
