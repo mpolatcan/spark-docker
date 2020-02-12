@@ -309,3 +309,7 @@ load_config "livy.repl.enable-hive-context" ${LIVY_REPL_ENABLE_HIVE_CONTEXT} "li
 load_config "livy.pyspark.archives" ${LIVY_PYSPARK_ARCHIVES} "livy.conf" "livy"
 load_config "livy.sparkr.package" ${LIVY_SPARKR_PACKAGE} "livy.conf" "livy"
 load_config "livy.file.local-dir-whitelist" ${LIVY_FILE_LOCAL_DIR_WHITELIST} "livy.conf" "livy"
+
+# Add Hadoop JARs to Spark classpath
+cp "${SPARK_HOME}/conf/spark-env.sh.template" "${SPARK_HOME}/conf/spark-env.sh"
+echo "SPARK_DIST_CLASSPATH=\$(hadoop classpath)" >> "${SPARK_HOME}/conf/spark-env.sh"

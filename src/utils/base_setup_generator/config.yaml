@@ -42,6 +42,10 @@ config_loader_sh_template: |
 
   {load_fn_calls}
 
+  # Add Hadoop JARs to Spark classpath
+  cp "${{SPARK_HOME}}/conf/spark-env.sh.template" "${{SPARK_HOME}}/conf/spark-env.sh"
+  echo "SPARK_DIST_CLASSPATH=\$(hadoop classpath)" >> "${{SPARK_HOME}}/conf/spark-env.sh"
+
 config_files:
   - path: spark_configs/spark-defaults.yaml
     filename: spark-defaults.conf
