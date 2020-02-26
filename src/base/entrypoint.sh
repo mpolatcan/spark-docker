@@ -24,8 +24,10 @@ if [[ "${HADOOP_DAEMONS}" != "NULL" ]]; then
       ${spark_services[$spark_service]}
     done
   fi
+else
+    __log__ "HADOOP_DAEMONS environment variable is not defined so that container will be run in \"client\" mode"
+fi
 
-  if [[ "$1" == "spark" ]]; then
+if [[ "$1" == "spark" ]]; then
     tail -f /dev/null
-  fi
 fi
