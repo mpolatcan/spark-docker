@@ -9,14 +9,14 @@ function __log__() {
   echo "[$(date '+%d/%m/%Y %H:%M:%S')] -> $1"
 }
 
-if [[ "${HADOOP_DAEMONS}" != "NULL" ]]; then
+function main() {
   # Load Hadoop configurations and start daemons
   ./hadoop_entrypoint.sh $1
 
   # Load Spark configurations
   ./spark_config_loader.sh
 
-  if [[ "${SPARK_DAEMONS}" != "NULL" ]]; then
+   if [[ "${SPARK_DAEMONS}" != "NULL" ]]; then
     __log__ "Starting Spark services..."
 
     for spark_service in ${SPARK_DAEMONS[@]}; do
@@ -24,10 +24,10 @@ if [[ "${HADOOP_DAEMONS}" != "NULL" ]]; then
       ${spark_services[$spark_service]}
     done
   fi
-else
-    __log__ "HADOOP_DAEMONS environment variable is not defined so that container will be run in \"client\" mode"
-fi
 
-if [[ "$1" == "spark" ]]; then
+  if [[ "$1" == "spark" ]]; then
     tail -f /dev/null
-fi
+  fi
+}
+
+main $1
