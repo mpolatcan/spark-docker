@@ -4,7 +4,7 @@ declare -A spark_services
 
 spark_services[livy]="livy-server start"
 
-# $1: message
+# $1:  message
 function __log__() {
   echo "[$(date '+%d/%m/%Y %H:%M:%S')] -> $1"
 }
