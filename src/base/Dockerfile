@@ -6,7 +6,7 @@ FROM mpolatcan/hadoop:${HADOOP_VERSION}-java${JAVA_VERSION}
 MAINTAINER Mutlu Polatcan <mutlupolatcan@gmail.com>
 
 ARG LIVY_VERSION=""
-ARG LIVY_ZIP_FOLDER_NAME="apachelivy-${LIVY_VERSION}-incubating-bin"
+ARG LIVY_ZIP_FOLDER_NAME="apache-livy-${LIVY_VERSION}-incubating-bin"
 ARG LIVY_DOWNLOAD_LINK="http://downloads.apache.org/incubator/livy/${LIVY_VERSION}-incubating/${LIVY_ZIP_FOLDER_NAME}.zip"
 
 ENV SPARK_HOME="${HDUSER_HOME}/spark" \
