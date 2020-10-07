@@ -1,0 +1,25 @@
+config_loader_sh_template: |
+  #!/usr/bin/env bash
+  function load_config() {{
+    if [[ "$2" != "NULL" && "$4" == "spark" ]]; then
+        printf "$1\t$2\n" >> "${{SPARK_CONF_DIR}}/$3"
+    elif [[ "$2" != "NULL" && "$4" == "livy" ]]; then
+        printf "$1 = $2\n" >> "${{LIVY_CONF_DIR}}/$3"
+    fi
+  }}
+
+  {load_fn_calls}
+
+  # Add Hadoop JARs to Spark classpath
+  cp "${{SPARK_HOME}}/conf/spark-env.sh.template" "${{SPARK_HOME}}/conf/spark-env.sh"
+  echo "SPARK_DIST_CLASSPATH=\$(hadoop classpath)" >> "${{SPARK_HOME}}/conf/spark-env.sh"
+
+config_files:
+  - path: spark_configs/spark-defaults.yaml
+    filename: spark-defaults.conf
+    config_type: spark
+  - path: spark_configs/livy-defaults.yaml
+    filename: livy.conf
+    config_type: livy
+
+output_dir: ../../base

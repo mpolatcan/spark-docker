@@ -7,7 +7,7 @@ MAINTAINER Mutlu Polatcan <mutlupolatcan@gmail.com>
 
 ARG SPARK_VERSION=""
 ARG SPARK_ZIP_FOLDER_NAME="spark-${SPARK_VERSION}-bin-without-hadoop"
-ARG SPARK_DOWNLOAD_LINK="http://www-eu.apache.org/dist/spark/spark-${SPARK_VERSION}/${SPARK_ZIP_FOLDER_NAME}.tgz"
+ARG SPARK_DOWNLOAD_LINK="http://downloads.apache.org/spark/spark-${SPARK_VERSION}/${SPARK_ZIP_FOLDER_NAME}.tgz"
 ARG SPARK_HIVE_JAR_DOWNLOAD_LINK="https://repo1.maven.org/maven2/org/apache/spark/spark-hive_2.11/${SPARK_VERSION}/spark-hive_2.11-${SPARK_VERSION}.jar"
 
 USER root

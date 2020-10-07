@@ -3,25 +3,17 @@ livy:
     "": "NULL"
     password: "NULL"
   key-password: "NULL"
-  hadoop:
-    security:
-      credential:
-        provider:
-          path: "NULL"
+  hadoop.security.credential.provider.path: "NULL"
   server:
     host: "0.0.0.0"
     port: "8998"
-    request-header:
-      size: "131072"
-    response-header:
-      size: "131072"
+    request-header.size: "131072"
+    response-header.size: "131072"
     session:
       timeout-check: "true"
       timeout: "1h"
-      state-retain:
-        sec: "600s"
-    csrf-protection:
-      enabled: "NULL"
+      state-retain.sec: "600s"
+    csrf-protection.enabled: "NULL"
     recovery:
       mode: "off"
       state-store:
@@ -33,8 +25,7 @@ livy:
         check-timeout: "600s"
         check-interval: "60s"
       poll-interval: "5s"
-    request-log-retain:
-      days: "5"
+    request-log-retain.days: "5"
     access-control:
       enabled: "false"
       allowed-users: "*"
@@ -52,18 +43,12 @@ livy:
   spark:
     master: "yarn"
     deployMode: "client"
-  impersonation:
-    enabled: "true"
-  cache-log:
-    size: "200"
-  rsc:
-    jars: "NULL"
+  impersonation.enabled: "true"
+  cache-log.size: "200"
+  rsc.jars: "NULL"
   repl:
     jars: "NULL"
     enable-hive-context: "NULL"
-  pyspark:
-    archives: "NULL"
-  sparkr:
-    package: "NULL"
-  file:
-    local-dir-whitelist: "NULL"
+  pyspark.archives: "NULL"
+  sparkr.package: "NULL"
+  file.local-dir-whitelist: "NULL"

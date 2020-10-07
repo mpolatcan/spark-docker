@@ -16,17 +16,17 @@ function main() {
   # Load Spark configurations
   ./spark_config_loader.sh
 
-   if [[ "${SPARK_DAEMONS}" != "NULL" ]]; then
-    __log__ "Starting Spark services..."
+  if [[ "${SPARK_DAEMONS}" != "NULL" ]]; then
+      __log__ "Starting Spark services..."
 
-    for spark_service in ${SPARK_DAEMONS[@]}; do
-      __log__ "Starting Spark service \"$spark_service\""
-      ${spark_services[$spark_service]}
-    done
+      for spark_service in ${SPARK_DAEMONS[@]}; do
+          __log__ "Starting Spark service \"$spark_service\""
+          ${spark_services[$spark_service]}
+      done
   fi
 
   if [[ "$1" == "spark" ]]; then
-    tail -f /dev/null
+      tail -f /dev/null
   fi
 }
 
