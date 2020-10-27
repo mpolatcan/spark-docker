@@ -3,7 +3,7 @@
 version: "3.5"
 services:
   spark-master:
-    image: mpolatcan/spark:2.3.4-hadoop-3.3.0-java8
+    image: mpolatcan/spark:2.4.7-hadoop-3.3.0-java8
     container_name: spark-master
     hostname: spark-master
     environment:
@@ -19,7 +19,7 @@ services:
       - 8998:8998
 
   spark-worker:
-    image: mpolatcan/spark:2.3.4-hadoop-3.3.0-java8
+    image: mpolatcan/spark:2.4.7-hadoop-3.3.0-java8
     environment:
       HADOOP_DAEMONS: |
         nodemanager
@@ -31,7 +31,7 @@ services:
       - 8042
 
   hdfs-master:
-    image: mpolatcan/spark:2.3.4-hadoop-3.3.0-java8
+    image: mpolatcan/spark:2.4.7-hadoop-3.3.0-java8
     container_name: hdfs-master
     hostname: hdfs-master
     environment:
@@ -42,7 +42,7 @@ services:
       - 9870:9870
 
   hdfs-slave:
-    image: mpolatcan/spark:2.3.4-hadoop-3.3.0-java8
+    image: mpolatcan/spark:2.4.7-hadoop-3.3.0-java8
     environment:
       HADOOP_DAEMONS: |
         datanode
