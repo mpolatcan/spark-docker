@@ -3,7 +3,7 @@
 version: "3.5"
 services:
   spark-master:
-    image: mpolatcan/pyspark:2.3.4-hadoop-3.2.1-java8
+    image: mpolatcan/pyspark:2.3.4-hadoop-3.3.0-java8
     container_name: spark-master
     hostname: spark-master
     environment:
@@ -11,7 +11,7 @@ services:
         resourcemanager
       SPARK_SERVICES: |
         livy
-      DFS_NAMENODE_HOSTNAME: "hdfs-master"
+      FS_DEFAULTFS: "hdfs://hdfs-master:9000"
       YARN_SCHEDULER_MINIMUM_ALLOCATION_MB: "128"
       YARN_SCHEDULER_MAXIMUM_ALLOCATION_MB: "1536"
     ports:
@@ -19,11 +19,11 @@ services:
       - 8998:8998
 
   spark-worker:
-    image: mpolatcan/pyspark:2.3.4-hadoop-3.2.1-java8
+    image: mpolatcan/pyspark:2.3.4-hadoop-3.3.0-java8
     environment:
       HADOOP_DAEMONS: |
         nodemanager
-      DFS_NAMENODE_HOSTNAME: "hdfs-master"
+      FS_DEFAULTFS: "hdfs://hdfs-master:9000"
       YARN_RESOURCEMANAGER_HOSTNAME: "spark-master"
       YARN_NODEMANAGER_RESOURCE_MEMORY_MB: "1536"
       YARN_NODEMANAGER_RESOURCE_CPU_VCORES: "2"
@@ -31,20 +31,21 @@ services:
       - 8042
 
   hdfs-master:
-    image: mpolatcan/pyspark:2.3.4-hadoop-3.2.1-java8
+    image: mpolatcan/pyspark:2.3.4-hadoop-3.3.0-java8
     container_name: hdfs-master
     hostname: hdfs-master
     environment:
       HADOOP_DAEMONS: |
         namenode
+      FS_DEFAULTFS: "hdfs://0.0.0.0:9000"
     ports:
       - 9870:9870
 
   hdfs-slave:
-    image: mpolatcan/pyspark:2.3.4-hadoop-3.2.1-java8
+    image: mpolatcan/pyspark:2.3.4-hadoop-3.3.0-java8
     environment:
       HADOOP_DAEMONS: |
         datanode
-      DFS_NAMENODE_HOSTNAME: "hdfs-master"
+      FS_DEFAULTFS: "hdfs://hdfs-master:9000"
     ports:
       - 9864

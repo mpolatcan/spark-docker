@@ -15,11 +15,9 @@ config_loader_sh_template: |
   echo "SPARK_DIST_CLASSPATH=\$(hadoop classpath)" >> "${{SPARK_HOME}}/conf/spark-env.sh"
 
 config_files:
-  - path: spark_configs/spark-defaults.yaml
+  - path: spark-defaults.yaml
     filename: spark-defaults.conf
     config_type: spark
-  - path: spark_configs/livy-defaults.yaml
+  - path: livy-defaults.yaml
     filename: livy.conf
     config_type: livy
-
-output_dir: ../../base

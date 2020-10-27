@@ -46,7 +46,7 @@ class ConfigLoaderGenerator:
             config_file_path, config_filename, config_type = config_info[Constants.KEY_PATH], config_info[Constants.KEY_FILENAME], config_info[Constants.KEY_CONFIG_TYPE]
             load_fn_calls.extend(self.__get_infos(yaml.safe_load(open(config_file_path, "r")), config_filename, config_type))
 
-        open("{loc}/config_loader.sh".format(loc=self.__config[Constants.KEY_OUTPUT_DIR]), "w").write(
+        open("config_loader.sh", "w").write(
             self.__config[Constants.KEY_CONFIG_LOADER_SH_TEMPLATE].format(load_fn_calls="\n".join(load_fn_calls))
         )
 
