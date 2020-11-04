@@ -12,7 +12,7 @@ jobs:
       matrix:
         repository: [spark]
         java_version: [8]
-        hadoop_version: [3.3.0, 3.2.1, 3.1.4, 2.10.1, 2.9.2, 2.8.5, 2.7.7]
+        hadoop_version: [3.3.0, 3.2.1, 3.1.4, 2.10.1, 2.9.2, 2.8.5]
         livy_version: [0.7.0]
     steps:
       - uses: actions/checkout@v2
@@ -24,7 +24,7 @@ jobs:
           pip install pyyaml
       - run: |
           cd src/base
-          python config_loader_generator.py config.yaml
+          python spark_config_loader_generator.py config.yaml
       - run: echo ${{secrets.DOCKER_PASSWORD}} | docker login -u ${{secrets.DOCKER_USERNAME}} --password-stdin
       - run: docker build -q
           -t ${{secrets.DOCKER_USERNAME}}/${{matrix.repository}}:base-hadoop-${{matrix.hadoop_version}}-java${{matrix.java_version}}
@@ -42,7 +42,7 @@ jobs:
         repository: [spark]
         java_version: [8]
         spark_version: [3.0.1, 2.4.7]
-        hadoop_version: [3.3.0, 3.2.1, 3.1.4, 2.10.1, 2.9.2, 2.8.5, 2.7.7]
+        hadoop_version: [3.3.0, 3.2.1, 3.1.4, 2.10.1, 2.9.2, 2.8.5]
     needs: build-base-image
     steps:
       - uses: actions/checkout@v2
@@ -63,7 +63,7 @@ jobs:
         repository: [pyspark]
         java_version: [8]
         spark_version: [3.0.1, 2.4.7]
-        hadoop_version: [3.3.0, 3.2.1, 3.1.4, 2.10.1, 2.9.2, 2.8.5, 2.7.7]
+        hadoop_version: [3.3.0, 3.2.1, 3.1.4, 2.10.1, 2.9.2, 2.8.5]
     needs: build-spark-image
     steps:
       - uses: actions/checkout@v2

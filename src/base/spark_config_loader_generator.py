@@ -15,7 +15,7 @@ class Constants:
     CONFIG_LOADER_STD_STATEMENT_FMT = "load_config \"{property}\" ${{{env_var_name}:={env_var_value}}} \"{config_filename}\" \"{config_type}\""
 
 
-class ConfigLoaderGenerator:
+class SparkConfigLoaderGenerator:
     def __init__(self, config_filename):
         self.__config = yaml.safe_load(open(config_filename, "r"))
 
@@ -52,4 +52,4 @@ class ConfigLoaderGenerator:
 
 
 if __name__ == "__main__":
-    ConfigLoaderGenerator(sys.argv[1]).generate()
+    SparkConfigLoaderGenerator(sys.argv[1]).generate()
