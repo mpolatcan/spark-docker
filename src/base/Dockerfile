@@ -16,8 +16,8 @@ ENV SPARK_CONF_DIR="${SPARK_HOME}/conf" \
     SPARK_DAEMONS="NULL" \
     PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin:$LIVY_HOME/bin
 
-ADD entrypoint.sh ${HDUSER_HOME}/spark_entrypoint.sh
-ADD config_loader.sh ${HDUSER_HOME}/spark_config_loader.sh
+ADD entrypoint.sh ./spark_entrypoint.sh
+ADD config_loader.sh ./spark_config_loader.sh
 
 USER root
 RUN mkdir -p ${SPARK_HOME} ${LIVY_HOME} && \
