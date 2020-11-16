@@ -14,7 +14,8 @@ ENV SPARK_HOME="${HDUSER_HOME}/spark" \
 ENV SPARK_CONF_DIR="${SPARK_HOME}/conf" \
     LIVY_CONF_DIR="${LIVY_HOME}/conf" \
     SPARK_DAEMONS="NULL" \
-    PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin:$LIVY_HOME/bin
+    PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin:$LIVY_HOME/bin \
+    HADOOP_CLASSPATH=${HADOOP_CLASSPATH}:${SPARK_HOME}/jars/*
 
 ADD entrypoint.sh ./spark_entrypoint.sh
 ADD config_loader.sh ./spark_config_loader.sh
